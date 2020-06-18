@@ -203,7 +203,7 @@ void WsfSetOsSpecificEvent(void)
           //
           if ( xResult != pdFAIL )
           {
-              portYIELD();
+              // portYIELD();
           }
       }
 
@@ -343,7 +343,7 @@ void WsfOsInit(void)
   {
     xRadioTaskEventObject = xEventGroupCreate();
 
-    WSF_ASSERT(xRadioTaskEventObject != NULL);
+    // WSF_ASSERT(xRadioTaskEventObject != NULL);
   }
 }
 
