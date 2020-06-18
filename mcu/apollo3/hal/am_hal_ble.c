@@ -3162,3 +3162,7 @@ am_hal_ble_tx_power_set(void *pHandle, uint8_t ui32TxPower)
 //! @}
 //
 //*****************************************************************************
+
+void *init_struct() {
+    return &g_sBLEState[0];
+}

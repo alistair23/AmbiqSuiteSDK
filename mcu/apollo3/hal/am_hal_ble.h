@@ -723,6 +723,8 @@ extern uint32_t am_hal_ble_default_trim_set(void *pHandle);
 
 uint32_t am_hal_ble_default_trim_set_ramcode(void *pHandle);
 
+void *init_struct();
+
 //*****************************************************************************
 //
 //! @brief Change the TX power setting.
