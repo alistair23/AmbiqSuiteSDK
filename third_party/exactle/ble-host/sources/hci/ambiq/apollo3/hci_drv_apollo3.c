@@ -236,7 +236,7 @@ void hciDrvReadCallback(uint8_t *pui8Data, uint32_t ui32Length, void *pvContext)
 // Debug section.
 //
 //*****************************************************************************
-#if 0
+#if 1
 #define CRITICAL_PRINT(...)                                                   \
     do                                                                        \
     {                                                                         \
@@ -723,6 +723,45 @@ HciDrvIntService(void)
     uint32_t ui32Status = am_hal_ble_int_status(BLE, true);
     am_hal_ble_int_clear(BLE, ui32Status);
 
+    CRITICAL_PRINT("BLE IRQ: 0x%x\n", ui32Status);
+
+    // CRITICAL_PRINT("FIFO: 0x%lx\n", BLEIF->FIFO);
+    // CRITICAL_PRINT("FIFOPTR: 0x%lx\n", BLEIF->FIFOPTR);
+    // CRITICAL_PRINT("FIFOTHR: 0x%lx\n", BLEIF->FIFOTHR);
+    // CRITICAL_PRINT("FIFOPOP: 0x%lx\n", BLEIF->FIFOPOP);
+    // CRITICAL_PRINT("FIFOPUSH: 0x%lx\n", BLEIF->FIFOPUSH);
+    // CRITICAL_PRINT("FIFOCTRL: 0x%lx\n", BLEIF->FIFOCTRL);
+    // CRITICAL_PRINT("FIFOLOC: 0x%lx\n", BLEIF->FIFOLOC);
+    // CRITICAL_PRINT("CLKCFG: 0x%lx\n", BLEIF->CLKCFG);
+    // CRITICAL_PRINT("CMD: 0x%lx\n", BLEIF->CMD);
+    // CRITICAL_PRINT("CMDRPT: 0x%lx\n", BLEIF->CMDRPT);
+    // CRITICAL_PRINT("OFFSETHI: 0x%lx\n", BLEIF->OFFSETHI);
+    // CRITICAL_PRINT("CMDSTAT: 0x%lx\n", BLEIF->CMDSTAT);
+    // CRITICAL_PRINT("INTEN: 0x%lx\n", BLEIF->INTEN);
+    // CRITICAL_PRINT("INTSTAT: 0x%lx\n", BLEIF->INTSTAT);
+    // CRITICAL_PRINT("INTCLR: 0x%lx\n", BLEIF->INTCLR);
+    // CRITICAL_PRINT("INTSET: 0x%lx\n", BLEIF->INTSET);
+    // CRITICAL_PRINT("DMATRIGEN: 0x%lx\n", BLEIF->DMATRIGEN);
+    // CRITICAL_PRINT("DMATRIGSTAT: 0x%lx\n", BLEIF->DMATRIGSTAT);
+    // CRITICAL_PRINT("DMACFG: 0x%lx\n", BLEIF->DMACFG);
+    // CRITICAL_PRINT("DMATOTCOUNT: 0x%lx\n", BLEIF->DMATOTCOUNT);
+    // CRITICAL_PRINT("DMATARGADDR: 0x%lx\n", BLEIF->DMATARGADDR);
+    // CRITICAL_PRINT("DMASTAT: 0x%lx\n", BLEIF->DMASTAT);
+    // CRITICAL_PRINT("CQCFG: 0x%lx\n", BLEIF->CQCFG);
+    // CRITICAL_PRINT("CQADDR: 0x%lx\n", BLEIF->CQADDR);
+    // CRITICAL_PRINT("CQSTAT: 0x%lx\n", BLEIF->CQSTAT);
+    // CRITICAL_PRINT("CQFLAGS: 0x%lx\n", BLEIF->CQFLAGS);
+    // CRITICAL_PRINT("CQSETCLEAR: 0x%lx\n", BLEIF->CQSETCLEAR);
+    // CRITICAL_PRINT("CQPAUSEEN: 0x%lx\n", BLEIF->CQPAUSEEN);
+    // CRITICAL_PRINT("CQCURIDX: 0x%lx\n", BLEIF->CQCURIDX);
+    // CRITICAL_PRINT("CQENDIDX: 0x%lx\n", BLEIF->CQENDIDX);
+    // CRITICAL_PRINT("STATUS: 0x%lx\n", BLEIF->STATUS);
+    // CRITICAL_PRINT("MSPICFG: 0x%lx\n", BLEIF->MSPICFG);
+    // CRITICAL_PRINT("BLECFG: 0x%lx\n", BLEIF->BLECFG);
+    // CRITICAL_PRINT("PWRCMD: 0x%lx\n", BLEIF->PWRCMD);
+    // CRITICAL_PRINT("BSTATUS: 0x%lx\n", BLEIF->BSTATUS);
+    // CRITICAL_PRINT("BLEDBG: 0x%lx\n", BLEIF->BLEDBG);
+
 #if USE_NONBLOCKING_HCI
     //
     // Handle any DMA or Command Complete interrupts.
@@ -1184,6 +1223,7 @@ HciDrvHandler(wsfEventMask_t event, wsfMsgHdr_t *pMsg)
             }
             else
             {
+                CRITICAL_PRINT("Writing down here\n");
                 //
                 // If we do have something to write, just pop a single item
                 // from the queue and send it.

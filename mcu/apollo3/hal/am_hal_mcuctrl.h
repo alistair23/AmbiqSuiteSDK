@@ -66,38 +66,18 @@ extern "C"
 // Chip Revision IDentification.
 //
 //*****************************************************************************
-#define APOLLO3_B0                                                          \
-        ((MCUCTRL->CHIPREV  &                                               \
-           (MCUCTRL_CHIPREV_REVMAJ_Msk | MCUCTRL_CHIPREV_REVMIN_Msk)) ==    \
-           (_VAL2FLD(MCUCTRL_CHIPREV_REVMAJ, MCUCTRL_CHIPREV_REVMAJ_B) |    \
-            _VAL2FLD(MCUCTRL_CHIPREV_REVMIN, MCUCTRL_CHIPREV_REVMIN_REV0)))
+#define APOLLO3_B0 1
 
-#define APOLLO3_A1                                                          \
-        ((MCUCTRL->CHIPREV  &                                               \
-           (MCUCTRL_CHIPREV_REVMAJ_Msk | MCUCTRL_CHIPREV_REVMIN_Msk)) ==    \
-           (_VAL2FLD(MCUCTRL_CHIPREV_REVMAJ, MCUCTRL_CHIPREV_REVMAJ_A) |    \
-            _VAL2FLD(MCUCTRL_CHIPREV_REVMIN, MCUCTRL_CHIPREV_REVMIN_REV1)))
+#define APOLLO3_A1 0
 
-#define APOLLO3_A0                                                          \
-        ((MCUCTRL->CHIPREV  &                                               \
-           (MCUCTRL_CHIPREV_REVMAJ_Msk | MCUCTRL_CHIPREV_REVMIN_Msk)) ==    \
-           (_VAL2FLD(MCUCTRL_CHIPREV_REVMAJ, MCUCTRL_CHIPREV_REVMAJ_A) |    \
-            _VAL2FLD(MCUCTRL_CHIPREV_REVMIN, MCUCTRL_CHIPREV_REVMIN_REV0)))
+#define APOLLO3_A0 0
 
 //
 // Determine if >= a given revision level.
 //
-#define APOLLO3_GE_B0                                                       \
-        ((MCUCTRL->CHIPREV  &                                               \
-           (MCUCTRL_CHIPREV_REVMAJ_Msk | MCUCTRL_CHIPREV_REVMIN_Msk)) >=    \
-           (_VAL2FLD(MCUCTRL_CHIPREV_REVMAJ, MCUCTRL_CHIPREV_REVMAJ_B) |    \
-            _VAL2FLD(MCUCTRL_CHIPREV_REVMIN, MCUCTRL_CHIPREV_REVMIN_REV0)))
+#define APOLLO3_GE_B0 1
 
-#define APOLLO3_GE_A1                                                       \
-        ((MCUCTRL->CHIPREV  &                                               \
-           (MCUCTRL_CHIPREV_REVMAJ_Msk | MCUCTRL_CHIPREV_REVMIN_Msk)) >=    \
-           (_VAL2FLD(MCUCTRL_CHIPREV_REVMAJ, MCUCTRL_CHIPREV_REVMAJ_A) |    \
-            _VAL2FLD(MCUCTRL_CHIPREV_REVMIN, MCUCTRL_CHIPREV_REVMIN_REV1)))
+#define APOLLO3_GE_A1 1
 
 
 //*****************************************************************************

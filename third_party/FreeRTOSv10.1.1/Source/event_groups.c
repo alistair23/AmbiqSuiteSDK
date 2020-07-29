@@ -159,7 +159,7 @@ static BaseType_t prvTestWaitCondition( const EventBits_t uxCurrentEventBits, co
 		sizeof( TickType_t ), the TickType_t variables will be accessed in two
 		or more reads operations, and the alignment requirements is only that
 		of each individual read. */
-		pxEventBits = ( EventGroup_t * ) pvPortMalloc( sizeof( EventGroup_t ) ); /*lint !e9087 !e9079 see comment above. */
+		pxEventBits = ( EventGroup_t * ) malloc( sizeof( EventGroup_t ) ); /*lint !e9087 !e9079 see comment above. */
 
 		if( pxEventBits != NULL )
 		{

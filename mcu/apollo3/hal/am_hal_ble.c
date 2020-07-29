@@ -694,57 +694,12 @@ am_hal_ble_boot(void *pHandle)
     //
     am_hal_ble_state_t *pBLE = pHandle;
 
-    if (pBLE->bUseDefaultPatches)
-    {
-        //
-        // The B0 silicon patching method is slightly different from A1. B0 silicon
-        // does not require the Copy Patch method introduced for A1 silicon.
-        //
-        if (APOLLO3_A0 || APOLLO3_A1)
-        {
-            ui32Status = am_hal_ble_default_copy_patch_apply(pHandle);
-            if (ui32Status != AM_HAL_STATUS_SUCCESS)
-            {
-                return ui32Status;
-            }
-        }
+    //
+    // Make sure to remember that we've sent the "patch complete" packet.
+    //
+    pBLE->bPatchComplete = true;
 
-        //
-        // Apply the BLE trim value
-        //
-        ui32Status = am_hal_ble_default_trim_set_ramcode(pHandle);
-        if (ui32Status != AM_HAL_STATUS_SUCCESS)
-        {
-            return ui32Status;
-        }
-
-        //
-        // Apply the NVDS patch.
-        //
-        ui32Status = am_hal_ble_default_patch_apply(pHandle);
-        if (ui32Status != AM_HAL_STATUS_SUCCESS)
-        {
-            return ui32Status;
-        }
-
-        //
-        // Complete the patching step
-        //
-        ui32Status = am_hal_ble_patch_complete(pHandle);
-        if (ui32Status != AM_HAL_STATUS_SUCCESS)
-        {
-            return ui32Status;
-        }
-    }
-
-    if (am_hal_ble_check_32k_clock(pBLE) == AM_HAL_STATUS_FAIL)
-    {
-        return AM_HAL_BLE_32K_CLOCK_UNSTABLE;
-    }
-    else
-    {
-        return AM_HAL_STATUS_SUCCESS;
-    }
+    return AM_HAL_STATUS_SUCCESS;
 } // am_hal_ble_boot()
 
 //*****************************************************************************
@@ -1448,7 +1403,7 @@ am_hal_ble_blocking_hci_write(void *pHandle, uint8_t ui8Type,
     //
     if (!AM_HAL_BLE_CHK_HANDLE(pHandle))
     {
-        return 0;
+        return -1;
     }
 
     //
@@ -1462,7 +1417,7 @@ am_hal_ble_blocking_hci_write(void *pHandle, uint8_t ui8Type,
     ui32ErrorStatus = am_hal_ble_blocking_transfer(pHandle, &HciWrite);
     if (ui32ErrorStatus != AM_HAL_STATUS_SUCCESS)
     {
-        return ui32ErrorStatus;
+        return -ui32ErrorStatus;
     }
 
     return AM_HAL_STATUS_SUCCESS;
@@ -1767,6 +1722,8 @@ am_hal_ble_blocking_transfer(void *pHandle, am_hal_ble_transfer_t *psTransfer)
     // Handle is good, so get the module number.
     //
     ui32Module = ((am_hal_ble_state_t *) pHandle)->ui32Module;
+
+    pBle->bPatchComplete = true;
 
     //
     // If the transfer doesn't have any bytes in it, just return success.
